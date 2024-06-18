@@ -18,7 +18,7 @@ export const Blog = () => {
 	}
 	return (
 		<div className={"h-screen flex flex-col"}>
-			<AppBar nameInitial={userName[0].toUpperCase()} to={'/blogs'} displayButton={false}/>
+			<AppBar nameInitial={userName[0].toUpperCase()} to={'/blogs'} displayButton={true}/>
 			{content}
 		</div>
 	)

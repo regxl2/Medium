@@ -42,7 +42,7 @@ export const PublishBlog = () => {
 	};
 	return (
 		<div className={'h-screen flex flex-col'}>
-			<AppBar nameInitial={userName[0].toUpperCase()} to={'/blogs'} />
+			<AppBar nameInitial={userName[0].toUpperCase()} to={'/blogs'} displayButton={false}/>
 			<div className={'flex flex-col items-center my-4'}>
 				<div className={'max-w-4xl'}>
 					<TitleInput label={'Title'} placeholder={'Title'} onValueChange={onChangeTitle} />
