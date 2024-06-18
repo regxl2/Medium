@@ -20,6 +20,7 @@ export const SignInForm = () => {
 	const onPasswordChange = useCallback((value:string)=>{setPassword(value)}, [])
 
 	const submitRequest = useCallback(async ()=>{
+		setState({ type: 'loading' });
 		try{
 			const signInInput: SignInInput = {email, password};
 			const response = await axios.post(`${BASE_URL}/user/signin`, signInInput);
