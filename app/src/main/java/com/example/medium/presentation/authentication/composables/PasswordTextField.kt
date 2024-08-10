@@ -1,8 +1,10 @@
-package com.example.medium.presentation.composables
+package com.example.medium.presentation.authentication.composables
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -21,7 +23,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
@@ -35,25 +39,25 @@ import com.example.medium.ui.theme.skyBlue
 @Composable
 fun PasswordTextField(
     modifier: Modifier = Modifier,
+    isPasswordFocused: Boolean,
+    passwordFocusRequester: FocusRequester,
+    onFocusChanged: (focusState: FocusState) -> Unit,
     value: String,
     onValueChange: (value: String) -> Unit
 ) {
     val focusManager = LocalFocusManager.current
     var hidePassword by remember { mutableStateOf(true) }
-    var isFocused by remember { mutableStateOf(false) }
     BasicTextField(
         modifier = modifier
+            .focusRequester(passwordFocusRequester)
             .onFocusChanged { focusState: FocusState ->
-                isFocused = focusState.isFocused
-                if (!focusState.isFocused) focusManager.clearFocus()
+                onFocusChanged(focusState)
             },
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = KeyboardType.Password,
             imeAction = ImeAction.Done
         ),
         keyboardActions = KeyboardActions(onDone = {
-            focusManager.clearFocus()
-        }, onNext = {
             focusManager.clearFocus()
         }),
         singleLine = true,
@@ -65,14 +69,16 @@ fun PasswordTextField(
             modifier = Modifier
                 .border(
                     width = 4.dp,
-                    color = if (isFocused) skyBlue else Color.Gray,
+                    color = if (isPasswordFocused) skyBlue else Color.Gray,
                     shape = RoundedCornerShape(8.dp)
                 )
                 .padding(start = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            innerTextField()
+            Box(modifier.weight(1f).padding(end = 16.dp)){
+                innerTextField()
+            }
             IconButton(
                 onClick = { hidePassword = !hidePassword }) {
                 Icon(

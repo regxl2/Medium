@@ -10,38 +10,38 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.medium.ui.theme.skyBlue
 
 @Composable
-fun FormTextField(
+fun EmailTextField(
     modifier: Modifier = Modifier,
     value: String,
+    isEmailFocused: Boolean,
+    emailFocusRequester: FocusRequester,
+    passwordFocusRequester: FocusRequester,
+    onFocusChanged: (focusState: FocusState)-> Unit,
     onValueChange: (value: String) -> Unit
 ) {
-    val focusManager = LocalFocusManager.current
-    var isFocused by remember { mutableStateOf(false) }
     BasicTextField(
-        modifier = modifier
+        modifier = modifier.
+            focusRequester(emailFocusRequester)
             .onFocusChanged { focusState: FocusState ->
-                isFocused = focusState.isFocused
+                onFocusChanged(focusState)
             },
         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password, imeAction = ImeAction.Next),
         keyboardActions = KeyboardActions(
             onNext = {
-                focusManager.clearFocus()
+                passwordFocusRequester.requestFocus()
             }),
         singleLine = true,
         value = value,
@@ -51,7 +51,7 @@ fun FormTextField(
             modifier = Modifier
                 .border(
                     width = 4.dp,
-                    color = if (isFocused) skyBlue else Color.Gray,
+                    color = if (isEmailFocused) skyBlue else Color.Gray,
                     shape = RoundedCornerShape(8.dp)
                 ),
             verticalAlignment = Alignment.CenterVertically,

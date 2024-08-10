@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id ("kotlin-kapt")
+    id ("dagger.hilt.android.plugin")
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.0"
 }
 
 android {
@@ -50,7 +53,21 @@ android {
 }
 
 dependencies {
+    //DataStore
+    implementation(libs.androidx.datastore.preferences)
+    // Kotlin serialization
+    implementation(libs.kotlinx.serialization.json)
+    // Retrofit with scalar Converter
+    implementation(libs.converter.scalars)
+    // Retrofit with Kotlin serialization Converter
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
+    implementation(libs.okhttp)
 
+    implementation (libs.androidx.hilt.navigation.compose)
+    implementation (libs.androidx.lifecycle.runtime.compose)
+    implementation (libs.hilt.android)
+    kapt (libs.hilt.android.compiler)
+    implementation (libs.androidx.material.icons.extended)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
