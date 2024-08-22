@@ -9,6 +9,7 @@ import com.example.medium.domain.model.SignUpBody
 import com.example.medium.domain.model.Token
 import com.example.medium.domain.repository.AuthRepository
 import com.example.medium.domain.util.Resource
+import com.example.medium.domain.util.errorMessage
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(private val mediumApi: MediumApi) : AuthRepository {
@@ -35,17 +36,6 @@ class AuthRepositoryImpl @Inject constructor(private val mediumApi: MediumApi) :
             Resource.Error(message = errorMessage(response.code()))
         }
         return data
-    }
-
-    private fun errorMessage(code: Int): String{
-        return when(code){
-            401 -> "Unauthorized"
-            403 -> "User doesn't exist or incorrect password"
-            409 -> "User with this email already exists"
-            411 -> "Inputs are incorrect"
-            500 -> "Internal server error"
-            else -> "Something went wrong"
-        }
     }
 }
 

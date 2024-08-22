@@ -1,8 +1,10 @@
 package com.example.medium.di
 
 import com.example.medium.data.repository.AuthRepositoryImpl
+import com.example.medium.data.repository.PostRepositoryImpl
 import com.example.medium.data.repository.TokenRepositoryImpl
 import com.example.medium.domain.repository.AuthRepository
+import com.example.medium.domain.repository.PostRepository
 import com.example.medium.domain.repository.TokenRepository
 import dagger.Binds
 import dagger.Module
@@ -21,4 +23,7 @@ abstract class RepositoryModule {
     @Binds
     abstract fun bindTokenRepository(tokenRepositoryImpl: TokenRepositoryImpl): TokenRepository
 
+    @Singleton
+    @Binds
+    abstract fun bindPostRepository(postRepositoryImpl: PostRepositoryImpl): PostRepository
 }

@@ -3,11 +3,12 @@ package com.example.medium.domain.usecases
 import com.example.medium.domain.repository.TokenRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class SetTokenUseCase(private val tokenRepository: TokenRepository) {
-    suspend operator fun invoke(token: String){
+class LogoutUseCase @Inject constructor(private val tokenRepository: TokenRepository) {
+    suspend operator fun invoke(){
         withContext(Dispatchers.IO){
-            tokenRepository.setTokenWithInfo(token = token)
+            tokenRepository.resetTokenWithInfo()
         }
     }
 }

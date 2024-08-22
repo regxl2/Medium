@@ -23,9 +23,17 @@ class TokenRepositoryImpl@Inject constructor(@ApplicationContext private val con
         }
     }
 
-    override suspend fun setToken(token: String) {
+    override suspend fun setTokenWithInfo(token: String) {
         context.datastore.edit {
-            settings -> settings[JWT_TOKEN] = token
+            settings ->
+            settings[JWT_TOKEN] = token
+        }
+    }
+
+    override suspend fun resetTokenWithInfo() {
+        context.datastore.edit {
+            settings ->
+            settings.clear()
         }
     }
 

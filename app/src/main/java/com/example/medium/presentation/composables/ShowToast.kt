@@ -1,4 +1,4 @@
-package com.example.medium.presentation.authentication.composables
+package com.example.medium.presentation.composables
 
 import android.content.Context
 import android.widget.Toast

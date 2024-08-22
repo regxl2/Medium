@@ -20,9 +20,9 @@ import androidx.navigation.NavController
 import com.example.medium.presentation.Routes
 import com.example.medium.presentation.authentication.AuthUiEvent
 import com.example.medium.presentation.authentication.AuthUiState
-import com.example.medium.presentation.authentication.composables.LoadingScreen
+import com.example.medium.presentation.composables.LoadingScreen
 import com.example.medium.presentation.authentication.composables.LogInForm
-import com.example.medium.presentation.authentication.composables.showErrorToast
+import com.example.medium.presentation.composables.showErrorToast
 
 @Composable
 fun LoginRoot(navController: NavController, viewModel: LoginViewModel = hiltViewModel()){

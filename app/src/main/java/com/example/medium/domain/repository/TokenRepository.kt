@@ -4,5 +4,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface TokenRepository {
     fun getTokenFlow(): Flow<String?>
-    suspend fun setToken(token: String)
+    suspend fun setTokenWithInfo(token: String)
+    suspend fun resetTokenWithInfo()
 }

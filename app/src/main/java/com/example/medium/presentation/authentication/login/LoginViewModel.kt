@@ -42,7 +42,9 @@ class LoginViewModel@Inject constructor(private val logInUseCase: LogInUseCase, 
             when(val resource = logInUseCase(logInBody)){
                 is Resource.Success -> {
                     _authUiState.value = _authUiState.value.copy(isLoading = false, onSuccessfulLogIn = true)
-                    resource.data?.let { setTokenUseCase(token = it.jwt)}
+                    resource.data?.let {
+                        setTokenUseCase(token = it.jwt)
+                    }
                 }
                 is Resource.Error -> {
                     _authUiState.value = _authUiState.value.copy(isLoading = false, errorMessage = resource.message)

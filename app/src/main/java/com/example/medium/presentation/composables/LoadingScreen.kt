@@ -1,4 +1,4 @@
-package com.example.medium.presentation.authentication.composables
+package com.example.medium.presentation.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

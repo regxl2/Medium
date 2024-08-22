@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.medium"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -53,6 +53,14 @@ android {
 }
 
 dependencies {
+
+    // Glide
+    implementation(libs.glide)
+    // Material3
+    implementation(libs.material3)
+    implementation(libs.material)
+    // JWT decode
+    implementation (libs.jwtdecode)
     //DataStore
     implementation(libs.androidx.datastore.preferences)
     // Kotlin serialization

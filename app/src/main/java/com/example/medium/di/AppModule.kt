@@ -22,17 +22,13 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun getMediumApi(): MediumApi{
+    fun getMediumApi(): MediumApi {
         return Retrofit.Builder()
-            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .addConverterFactory(Json {
+                ignoreUnknownKeys = true
+            }.asConverterFactory("application/json".toMediaType()))
             .baseUrl("http://10.0.2.2:8787/api/v1/")
             .build()
             .create(MediumApi::class.java)
-    }
-
-    @Singleton
-    @Provides
-    fun getTokenUseCase(tokenRepository: TokenRepository): GetTokenUseCase{
-        return GetTokenUseCase(tokenRepository = tokenRepository)
     }
 }
